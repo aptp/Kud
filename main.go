@@ -2,24 +2,36 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"os"
+	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/nlopes/slack"
 )
 
+// Env has some token and key.
 type Env struct {
 	SlackToken string `required:"true"`
 }
 
+var phrase = []string{
+	"WELCOME!!!!!",
+	"THANK YOU!!!!",
+}
+
 func main() {
+	var e Env
+	var err error
+
 	// set config
-	err := godotenv.Load()
+	err = godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	var e Env
+
 	err = envconfig.Process("klyuchan", &e)
 	if err != nil {
 		log.Fatal(err)
@@ -43,8 +55,10 @@ func run(api *slack.Client) int {
 
 			case *slack.MessageEvent:
 				log.Printf("Message: %v\n", ev)
-				rtm.SendMessage(rtm.NewOutgoingMessage("Hello world", ev.Channel))
-
+				if strings.Contains(ev.Text, "遅れ") {
+					rand.Seed(time.Now().UnixNano())
+					rtm.SendMessage(rtm.NewOutgoingMessage(phrase[rand.Intn(2)], ev.Channel))
+				}
 			case *slack.InvalidAuthEvent:
 				log.Print("Invalid credentials")
 				return 1
