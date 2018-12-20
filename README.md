@@ -16,6 +16,6 @@ If you have some suggestion, please check [Contributing](https://github.com/aptp
 
 ## Contributing
 
-### enviroment
+### environment
 - go1.11
 
