@@ -1,11 +1,12 @@
 # [WIP] Kud
 
-[![CircleCI](https://circleci.com/gh/aptp/Kud/tree/master.svg?style=svg)](https://circleci.com/gh/aptp/Kud/tree/master) 
+[![CircleCI](https://circleci.com/gh/aptp/Kud/tree/master.svg?style=svg)](https://circleci.com/gh/aptp/Kud/tree/master) <br>
+<br>
 aptp team utility slack bot.
 
 ## Description
 
-## functions (Plans)
+## Functions (Plans)
 - [ ] Notice number of github.com contributions of that day at 9pm and a week's contributions.
 - [ ] Check Vtuber live.
 - [ ] Manage To-Do list.
