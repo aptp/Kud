@@ -26,11 +26,17 @@ type Slack struct {
 // Repository is config to data are stored.
 type Repository struct {
 	Datastore *Datastore
+	GitHub    *GitHub
 }
 
 // Datastore is google cloud datastore config
 type Datastore struct {
-	ProjectID string `required: "true"`
+	ProjectID string `required:"true"`
+}
+
+// GitHub has access token.
+type GitHub struct {
+	AccessToken string `required:"true"`
 }
 
 // Load read Config from .env file and environment variable.
