@@ -12,7 +12,7 @@ type Repository struct {
 	AccessToken string
 }
 
-func (r *Repository) GetContoributions(ctx context.Context, userName string, from time.Time, to time.Time) (interface{}, error) {
+func (r *Repository) GetContoributions(ctx context.Context, userName string, from time.Time, to time.Time) ([]int, error) {
 
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: r.AccessToken},
@@ -39,8 +39,17 @@ func (r *Repository) GetContoributions(ctx context.Context, userName string, fro
 	}
 
 	if err := client.Query(ctx, &q, variables); err != nil {
-		return nil, err
+		return []int{}, err
 	}
 
-	return q, nil
+	end := len(q.User.ContributionsCollection.ContributionCalendar.Weeks) - 1
+	w := q.User.ContributionsCollection.ContributionCalendar.Weeks[end]
+
+	c := make([]int, len(w.ContributionDays))
+
+	for i := range w.ContributionDays {
+		c[i] = int(w.ContributionDays[i].ContributionCount)
+	}
+
+	return c, nil
 }
