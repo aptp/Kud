@@ -2,17 +2,17 @@ package github
 
 import (
 	"context"
+	"time"
 
-	"github.com/aptp/Kud/entity"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 )
 
-type GitHubRepository struct {
+type Repository struct {
 	AccessToken string
 }
 
-func (r *GitHubRepository) GetContoributions(ctx context.Context, userName string, to string, from string) (*entity.WeekContributionsCount, error) {
+func (r *Repository) GetContoributions(ctx context.Context, userName string, from time.Time, to time.Time) (interface{}, error) {
 
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: r.AccessToken},
@@ -21,13 +21,11 @@ func (r *GitHubRepository) GetContoributions(ctx context.Context, userName strin
 	client := githubv4.NewClient(httpClient)
 
 	var q struct {
-		user struct {
-			contributionsCollection struct {
-				contributionCalendar struct {
-					weeks struct {
-						contributionDays struct {
-							contributionCount githubv4.Int
-						}
+		User struct {
+			ContributionsCollection struct {
+				ContributionCalendar struct {
+					Weeks []struct {
+						ContributionDays []struct{ ContributionCount githubv4.Int }
 					}
 				}
 			} `graphql:"contributionsCollection(from:$from,to:$to)"`
@@ -35,8 +33,8 @@ func (r *GitHubRepository) GetContoributions(ctx context.Context, userName strin
 	}
 
 	variables := map[string]interface{}{
-		"from":     githubv4.String(from),
-		"to":       githubv4.String(to),
+		"from":     githubv4.DateTime{from},
+		"to":       githubv4.DateTime{to},
 		"userName": githubv4.String(userName),
 	}
 
@@ -44,5 +42,5 @@ func (r *GitHubRepository) GetContoributions(ctx context.Context, userName strin
 		return nil, err
 	}
 
-	return nil, nil
+	return q, nil
 }
