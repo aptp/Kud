@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -9,10 +8,13 @@ import (
 type WeekContributionsCount [7]int
 
 // ContributionPeriod return current date and one week ago in ISO-8601 encoded UTC date format.
-func ContributionPeriod() (to string, from string) {
+func ContributionPeriod() (from time.Time, to time.Time) {
 
-	to = fmt.Sprintf(time.Now().Format(time.RFC3339))
-	from = fmt.Sprintf(time.Now().AddDate(0, 0, -7).Add(-(12 + 9) * time.Hour).Format(time.RFC3339))
+	utc, _ := time.LoadLocation("UTC")
+
+	from = time.Now().AddDate(0, 0, -7).Add(-(12 + 9) * time.Hour).In(utc)
+	// TODO: 現在の日付になるとなぜか1年分取れてしまう。
+	to = time.Now().In(utc)
 
 	return
 }
