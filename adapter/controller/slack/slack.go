@@ -1,30 +1,31 @@
-package controller
+package slack
 
 import (
 	"errors"
 
+	"github.com/aptp/Kud/adapter/repository"
 	"github.com/aptp/Kud/config"
 	"github.com/nlopes/slack"
 )
 
-type SlackBot struct {
+type Bot struct {
 	cfg    *config.Config
 	client *slack.Client
 	// logger *log.Logger
-	// repository *repository.Repository
+	repository *repository.Repository
 }
 
-func NewSlackBot(cfg *config.Config) *SlackBot {
+func NewBot(cfg *config.Config) *Bot {
 
 	client := slack.New(cfg.Slack.APIToken)
 
-	return &SlackBot{
+	return &Bot{
 		cfg:    cfg,
 		client: client,
 	}
 }
 
-func (s *SlackBot) Listen() error {
+func (s *Bot) Listen() error {
 
 	rtm := s.client.NewRTM()
 	go rtm.ManageConnection()
@@ -32,6 +33,7 @@ func (s *SlackBot) Listen() error {
 	// This Event loop watch 2 event.
 	// First, slack incoming Event. For example, post message.
 	// TODO: Second, cron job.
+
 	for {
 		select {
 		case msg := <-rtm.IncomingEvents:
@@ -49,12 +51,12 @@ func (s *SlackBot) Listen() error {
 	}
 }
 
-func (s *SlackBot) handleMessageEvent(ev *slack.MessageEvent) error {
+func (s *Bot) handleMessageEvent(ev *slack.MessageEvent) error {
 	// TODO: impl
 	return nil
 }
 
-func (s *SlackBot) HandleCronEvent(etype string) error {
-	// TODO: impl
+func (s *Bot) HandleNotifyContributionsEvent(etype string) error {
+
 	return nil
 }
