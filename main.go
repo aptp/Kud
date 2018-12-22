@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/aptp/Kud/adapter/controller"
 	"github.com/aptp/Kud/adapter/controller/slack"
 	"github.com/aptp/Kud/config"
 )
@@ -20,8 +21,8 @@ func main() {
 	)
 }
 
-func run(sb *slack.Bot) int {
-	if err := sb.Listen(); err != nil {
+func run(l controller.Listener) int {
+	if err := l.Listen(); err != nil {
 		log.Printf("Error :%s", err.Error())
 		return 1
 	}
