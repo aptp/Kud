@@ -12,7 +12,7 @@ type Repository struct {
 	AccessToken string
 }
 
-func (r *Repository) GetContoributions(ctx context.Context, userName string, from time.Time, to time.Time) ([]int, error) {
+func (r *Repository) GetContributions(ctx context.Context, userName string, from time.Time, to time.Time) ([]int, error) {
 
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: r.AccessToken},
