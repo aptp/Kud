@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/aptp/Kud/tree/master.svg?style=svg)](https://circleci.com/gh/aptp/Kud/tree/master) <br>
 <br>
-aptp team utility slack bot.
+aptp team utility cross-platform bot.
 
 ## Description
 
