@@ -20,7 +20,9 @@ type Mode struct {
 
 // Slack has some token and key.
 type Slack struct {
-	APIToken string `required:"true"`
+	APIToken           string `required:"true"`
+	DisplayName        string `dafault:"クド"`
+	WorkingCronChannel []string
 }
 
 // Repository is config to data are stored.
