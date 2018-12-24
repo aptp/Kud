@@ -12,6 +12,7 @@ aptp team utility cross-platform bot.
 - [ ] Manage To-Do list.
 - [ ] Informal conversation.
 - [ ] Notify wakatime weekly report.
+- [ ] Collect technology article.
 
 If you have some suggestion, please check [Contributing](https://github.com/aptp/Kud#contributing) and open new issue.
 
