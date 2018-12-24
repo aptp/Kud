@@ -11,6 +11,7 @@ aptp team utility cross-platform bot.
 - [ ] Check Vtuber live.
 - [ ] Manage To-Do list.
 - [ ] Informal conversation.
+- [ ] Notify wakatime weekly report.
 
 If you have some suggestion, please check [Contributing](https://github.com/aptp/Kud#contributing) and open new issue.
 
