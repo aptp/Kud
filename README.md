@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/aptp/Kud/tree/master.svg?style=svg)](https://circleci.com/gh/aptp/Kud/tree/master) <br>
 <br>
-aptp team utility slack bot.
+aptp team utility cross-platform bot.
 
 ## Description
 
@@ -11,6 +11,7 @@ aptp team utility slack bot.
 - [ ] Check Vtuber live.
 - [ ] Manage To-Do list.
 - [ ] Informal conversation.
+- [ ] Notify wakatime weekly report.
 
 If you have some suggestion, please check [Contributing](https://github.com/aptp/Kud#contributing) and open new issue.
 
