@@ -7,8 +7,8 @@ import (
 	"github.com/aptp/Kud/adapter/controller"
 	"github.com/aptp/Kud/adapter/controller/slack"
 	"github.com/aptp/Kud/adapter/repository"
+	slack_repo "github.com/aptp/Kud/adapter/repository/badger/slack"
 	"github.com/aptp/Kud/adapter/repository/github"
-	slack_datastore "github.com/aptp/Kud/adapter/repository/slack"
 	"github.com/aptp/Kud/config"
 )
 
@@ -23,9 +23,7 @@ func main() {
 		GitHub: &github.Repository{
 			AccessToken: cfg.Repo.GitHub.AccessToken,
 		},
-		Slack: &slack_datastore.Repository{
-			ProjectID: cfg.Repo.Datastore.ProjectID,
-		},
+		Slack: &slack_repo.Repository{},
 	}
 
 	os.Exit(
