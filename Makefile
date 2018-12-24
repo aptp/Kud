@@ -22,4 +22,4 @@ coverage:
 	go tool cover -html=coverage.out
 
 gce-deploy:
-	./script/gce_deploy.sh
+	./scripts/gce_deploy.sh
