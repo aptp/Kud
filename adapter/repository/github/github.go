@@ -2,6 +2,7 @@ package github
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/shurcooL/githubv4"
@@ -42,13 +43,32 @@ func (r *Repository) GetContributions(ctx context.Context, userName string, from
 		return []int{}, err
 	}
 
+	// github end of slice maybe has int value 7 or less. So get week before last.
+	// TODO: move this logic
+	// TODO: リスクエスト内容によってコントリビューションのmetaレベルから変化するので仕様を確認する
 	end := len(q.User.ContributionsCollection.ContributionCalendar.Weeks) - 1
 	w := q.User.ContributionsCollection.ContributionCalendar.Weeks[end]
+	wbl := q.User.ContributionsCollection.ContributionCalendar.Weeks[end-1]
+	fmt.Printf("w: %v\n", w)
+	fmt.Printf("wbl: %v\n", wbl)
 
-	c := make([]int, len(w.ContributionDays))
+	c := make([]int, 7)
+	if 7 > len(w.ContributionDays) {
 
-	for i := range w.ContributionDays {
-		c[i] = int(w.ContributionDays[i].ContributionCount)
+		for i := 0; i < 7-len(w.ContributionDays); i++ {
+			c[i] = int(wbl.ContributionDays[len(w.ContributionDays)+i].ContributionCount)
+		}
+
+		for i := range w.ContributionDays {
+			c[len(wbl.ContributionDays)-len(w.ContributionDays)+i] = int(wbl.ContributionDays[i].ContributionCount)
+		}
+
+	} else {
+
+		for i := range w.ContributionDays {
+			c[i] = int(w.ContributionDays[i].ContributionCount)
+		}
+
 	}
 
 	return c, nil
