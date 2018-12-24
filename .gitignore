@@ -1,3 +1,4 @@
 .env
 Kud
 extest/
+scripts/gce_deploy.sh

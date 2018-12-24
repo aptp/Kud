@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 .PHONY: build test vet lint run-dev-appserver \
-  run-on-docker mockgen coverage
+  run-on-docker mockgen coverage gce-deploy
 
 build:
 	go build .
@@ -20,3 +20,6 @@ run-dev_appserver:
 
 coverage:
 	go tool cover -html=coverage.out
+
+gce-deploy:
+	./script/gce_deploy.sh
