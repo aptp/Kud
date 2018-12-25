@@ -2,7 +2,6 @@ package github
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/shurcooL/githubv4"
@@ -15,6 +14,8 @@ type Repository struct {
 
 func (r *Repository) GetContributions(ctx context.Context, userName string, from time.Time, to time.Time) ([]int, error) {
 
+	// TODO: 現在のコード, トークのスコープが原因かパブリックなリポジトリのコミット数しか取れない。
+	// なので修正する。
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: r.AccessToken},
 	)
@@ -45,22 +46,19 @@ func (r *Repository) GetContributions(ctx context.Context, userName string, from
 
 	// github end of slice maybe has int value 7 or less. So get week before last.
 	// TODO: move this logic
-	// TODO: リスクエスト内容によってコントリビューションのmetaレベルから変化するので仕様を確認する
 	end := len(q.User.ContributionsCollection.ContributionCalendar.Weeks) - 1
 	w := q.User.ContributionsCollection.ContributionCalendar.Weeks[end]
-	wbl := q.User.ContributionsCollection.ContributionCalendar.Weeks[end-1]
-	fmt.Printf("w: %v\n", w)
-	fmt.Printf("wbl: %v\n", wbl)
 
 	c := make([]int, 7)
 	if 7 > len(w.ContributionDays) {
 
+		wbl := q.User.ContributionsCollection.ContributionCalendar.Weeks[end-1]
 		for i := 0; i < 7-len(w.ContributionDays); i++ {
 			c[i] = int(wbl.ContributionDays[len(w.ContributionDays)+i].ContributionCount)
 		}
 
 		for i := range w.ContributionDays {
-			c[len(wbl.ContributionDays)-len(w.ContributionDays)+i] = int(wbl.ContributionDays[i].ContributionCount)
+			c[7-len(w.ContributionDays)+i] = int(w.ContributionDays[i].ContributionCount)
 		}
 
 	} else {
