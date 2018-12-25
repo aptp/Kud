@@ -23,3 +23,7 @@ coverage:
 
 gce-deploy:
 	./scripts/gce_deploy.sh
+
+moq:
+	moq -out ./adapter/repository/github/github_mock.go -pkg github ./entity GitHubRepository
+	moq -out ./adapter/repository/badger/slack/slack_mock.go -pkg slack ./entity SlackRepository
