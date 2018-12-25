@@ -3,6 +3,7 @@ package entity
 import (
 	"errors"
 	"fmt"
+	"log"
 )
 
 type Reply struct {
@@ -12,6 +13,7 @@ type Reply struct {
 
 func NewReply(userName string, c []int) *Reply {
 
+	log.Printf("userName: %s, contribution: %v", userName, c)
 	return &Reply{
 		UserName:      userName,
 		Contributions: c,
@@ -22,7 +24,7 @@ func (r *Reply) MakeTodaysContributions() (string, error) {
 
 	if len(r.Contributions) != 7 {
 		// TODO: make Error define.
-		return "", errors.New("Error")
+		return "", errors.New("contributions content is 6 or less.")
 	}
 
 	tc := r.Contributions[len(r.Contributions)-1]
@@ -32,7 +34,7 @@ func (r *Reply) MakeTodaysContributions() (string, error) {
 	for i := range r.Contributions {
 		wc += r.Contributions[i]
 	}
-	week := fmt.Sprintf("ここ１週間だと %d contributions。", wc)
+	week := fmt.Sprintf("ここ１週間では %d contributions。", wc)
 
 	switch {
 	case wc >= 70:
