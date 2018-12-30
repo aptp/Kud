@@ -38,6 +38,19 @@ type Datastore struct {
 
 // GitHub has access token.
 type GitHub struct {
+	/*
+		request the following scopes:
+			user
+			public_repo
+			repo
+			repo_deployment
+			repo:status
+			read:repo_hook
+			read:org
+			read:public_key
+			read:gpg_key
+	*/
+
 	AccessToken string `required:"true"`
 }
 
