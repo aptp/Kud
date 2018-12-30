@@ -7,7 +7,7 @@ aptp team utility cross-platform bot.
 ## Description
 
 ## Functions (Plans)
-- [ ] Notice number of github.com contributions of that day at 10pm and a week's contributions.
+- [x] Notice number of github.com contributions of that day at 10pm and a week's contributions.
 - [ ] Check Vtuber live.
 - [ ] Manage To-Do list.
 - [ ] Informal conversation.
