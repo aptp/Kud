@@ -1,10 +1,13 @@
 SHELL := /bin/bash
 
-.PHONY: build test vet lint run-dev-appserver \
+.PHONY: build run test vet lint run-dev-appserver \
   run-on-docker mockgen coverage gce-deploy
 
 build:
 	go build .
+
+run: 
+	go build . && ./Kud
 
 test: 
 	go test -race -v $(shell go list ./...)
