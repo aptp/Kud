@@ -40,7 +40,7 @@ func (s *Bot) Listen() error {
 		s.handleNotifyContributionsEvent()
 	}
 
-	scheduler.Every().Day().At("22:00").Run(notifycontributionsCron)
+	scheduler.Every().Day().At("20:00").Run(notifycontributionsCron)
 
 	// This Event loop watch 2 event.
 	// First, slack incoming Event. For example, post message.
